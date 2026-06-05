@@ -16,7 +16,7 @@ function UserPhotos() {
   const [photosUser, setPhotosUser] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchModel("/photosOfUser/" + userId);
+      const data = await fetchModel("/api/photo/" + userId);
       setPhotosUser(data);
     };
     fetchData();

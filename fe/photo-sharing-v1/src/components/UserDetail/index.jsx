@@ -16,7 +16,7 @@ function UserDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchModel("/user/" + userId);
+      const data = await fetchModel("/api/user/" + userId);
       setUser(data);
     };
 

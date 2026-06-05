@@ -20,7 +20,7 @@ function UserList() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchModel("/user/list");
+      const data = await fetchModel("/api/user/list");
       setUsers(data);
     };
     fetchData();
