@@ -9,12 +9,13 @@ import fetchModel from "../../lib/fetchModelData";
 /**
  * Define UserDetail, a React component of Project 4.
  */
-function UserDetail() {
+function UserDetail({ loggedIn }) {
   const { userId } = useParams();
   // const user = models.userModel(userId);
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    if (!loggedIn) return;
     const fetchData = async () => {
       const data = await fetchModel("/api/user/" + userId);
       setUser(data);
@@ -24,18 +25,19 @@ function UserDetail() {
   }, [userId]);
   return (
     <>
-      <Typography variant="body1">
-        This should be the UserDetail view of the PhotoShare app. Since it is
-        invoked from React Router the params from the route will be in property
-        match. So this should show details of user: {user._id}. You can fetch
-        the model for the user from models.userModel.{" "}
-        <p>
-          Name :{user.first_name} {user.last_name}
-        </p>
-        <p> Local: {user.location}</p>
-        <p>Occupation: {user.occupation}</p>
-        <Link to={`/photos/${userId}`}>View Photos</Link>
-      </Typography>
+      {loggedIn && (
+        <>
+          <Typography variant="body1">
+            <p>
+              Name :{user.first_name} {user.last_name}
+            </p>
+            <p> Local: {user.location}</p>
+            <p>Occupation: {user.occupation}</p>
+            <p> Description: {user.description} </p>
+            <Link to={`/photos/${userId}`}>View Photos</Link>
+          </Typography>
+        </>
+      )}
     </>
   );
 }
